@@ -1,18 +1,33 @@
-// 1. Importar express
+require('dotenv').config();
+
 const express = require('express');
+const path = require('path');
+const conectarDB = require('./config/db');
 
-// 2. Inicializar la app
 const app = express();
-
-// 3. Definir el puerto
 const PORT = process.env.PORT || 3000;
 
-// 4. Ruta raíz que responde con el "Hola Mundo"
+// Conexión a la base de datos
+conectarDB();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Middlewares Base
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// --- COMENTAMOS ESTO TEMPORALMENTE ---
+// const indexRoutes = require('./routes/indexRoutes');
+// app.use('/', indexRoutes);
+
+// Ruta base simple para probar
 app.get('/', (req, res) => {
-    res.send('<h1>¡Hola Mundo desde ReserVa!</h1><p>El servidor base está corriendo correctamente.</p>');
+    res.send('Servidor corriendo correctamente');
 });
 
-// 5. Encender el servidor
+// Arrancar Servidor
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor ejecutándose en http://localhost:${PORT}`);
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
