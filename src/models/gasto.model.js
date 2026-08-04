@@ -8,7 +8,7 @@ const gastoSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'GASTO',
-        enum: ['INGRESO', 'GASTO'] // Equivale a TIPO_CHOICES
+        enum: ['INGRESO', 'GASTO'] // Esto es el CHOISES de Django
     },
     concepto: {
         type: String,
