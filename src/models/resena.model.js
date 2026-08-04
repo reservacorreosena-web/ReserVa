@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const resenaSchema = new mongoose.Schema({
     usuario: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario', // Relación equivalente a ForeignKey(User) en Django
+        ref: 'Usuario', // Esto es como el foreing key de django
         required: [true, 'La reseña debe pertenecer a un usuario']
     },
     calificacion_comida: {
