@@ -22,9 +22,24 @@ app.use(express.urlencoded({ extended: true }));
 // const indexRoutes = require('./routes/indexRoutes');
 // app.use('/', indexRoutes);
 
-// Ruta base simple para probar
+// Ruta base para renderizar tu vista index.ejs
 app.get('/', (req, res) => {
-    res.send('Servidor corriendo correctamente');
+    res.render('index');
+});
+
+// --- RUTAS TEMPORALES PARA PROBAR EL CAPTCHA ---
+app.get('/test-captcha', (req, res) => {
+    res.render('test-captcha');
+});
+
+app.post('/probar-captcha', (req, res) => {
+    const tokenCaptcha = req.body['g-recaptcha-response'];
+
+    if (!tokenCaptcha) {
+        return res.send('<h2>❌ ¡Pilas! No completaste el captcha o eres un robot.</h2>');
+    }
+
+    res.send('<h2>✅ ¡Excelente! El token del captcha llegó perfecto al servidor.</h2>');
 });
 
 // Arrancar Servidor

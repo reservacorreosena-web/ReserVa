@@ -1,6 +1,7 @@
-const Usuario =requiere('../models/usuario.model')
+// Ojo aquí: asegúrate de que el archivo del modelo se llame exactamente 'Usuario.js'
+const Usuario = require('../models/Usuario');
 
-// Obtener todos los usuarios
+// 1. Obtener todos los usuarios
 exports.obtenerUsuarios = async (req, res) => {
     try {
         const usuarios = await Usuario.find();
@@ -17,9 +18,10 @@ exports.obtenerUsuarios = async (req, res) => {
     }
 };
 
-// Crear un nuevo usuario
+// 2. Crear un nuevo usuario (sencillito y directo)
 exports.crearUsuario = async (req, res) => {
     try {
+        // Creamos el usuario directo con lo que viene del body
         const nuevoUsuario = new Usuario(req.body);
         const usuarioGuardado = await nuevoUsuario.save();
 
@@ -36,3 +38,5 @@ exports.crearUsuario = async (req, res) => {
         });
     }
 };
+
+//FALTA DELETE Y UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE

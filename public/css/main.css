@@ -1,0 +1,36 @@
+:root {
+  --color-vino: #800020;
+  --color-fondo: #131313;
+  --color-dorado: #FFC107;
+  --color-texto: #F8F9FA;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.btn-dorado {
+  background-color: var(--color-dorado);
+  color: #000;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-dorado:hover {
+  background-color: #e0a800;
+  color: #000;
+}
+
+.navbar-custom {
+  background-color: var(--color-fondo);
+  border-bottom: 2px solid var(--color-vino);
+}
