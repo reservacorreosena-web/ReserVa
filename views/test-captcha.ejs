@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba de Captcha Enterprise</title>
+    <!-- Script oficial de Google reCAPTCHA Enterprise que te dio la plataforma -->
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+</head>
+<body style="background: #131313; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
+    
+    <form action="">
+        <label for="">
+            <input type="email">
+        </label>
+    </form>
+    <h1>Prueba Rápida reCAPTCHA Enterprise</h1>
+    
+    <form action="/probar-captcha" method="POST">
+        <!-- Contenedor con tu Site Key real y la acción de LOGIN -->
+        <div class="g-recaptcha" 
+             data-sitekey="6LcMTIEtAAAAAFCRCLnPF2aoEYIqKV9D9X-X1OQt" 
+             data-action="LOGIN"
+             style="display: inline-block; margin: 20px 0;"></div>
+        <br>
+        <button type="submit" style="padding: 10px 20px; background: #FFC107; color: black; font-weight: bold; border: none; cursor: pointer;">Enviar Prueba</button>
+    </form>
+</body>
+</html>
