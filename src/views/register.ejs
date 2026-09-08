@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>ReserVa - Iniciar Sesión</title>
+    <title>ReserVa - Registro</title>
     <style>
         body { font-family: Arial, sans-serif; background: #121212; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .card { background: #1e1e1e; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); width: 320px; }
@@ -17,14 +17,14 @@
 </head>
 <body>
     <div class="card">
-        <h2>Iniciar Sesión 🚀</h2>
+        <h2>Crear Cuenta 🍔</h2>
         <% if (error) { %> <div class="error"><%= error %></div> <% } %>
-        <form action="/login" method="POST">
+        <form action="/register" method="POST">
             <input type="email" name="email" placeholder="Correo electrónico" required>
             <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Entrar</button>
+            <button type="submit">Registrarse</button>
         </form>
-        <a href="/register">¿No tienes cuenta? Regístrate aquí</a>
+        <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>
         <a href="/">← Volver al inicio</a>
     </div>
 </body>

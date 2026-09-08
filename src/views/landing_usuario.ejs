@@ -1,0 +1,127 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="rv-landing">
+    <!-- HERO SECTION -->
+    <section class="rv-hero" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2000&q=80');">
+        <div class="rv-hero__scrim"></div>
+        <div class="rv-hero__center">
+            <span class="rv-eyebrow">Reserva. Disfruta. Vive la experiencia.</span>
+            <h1 class="rv-headline">
+                Tu mesa te espera,<br>
+                nosotros la <em>preparamos</em>
+            </h1>
+            <p class="rv-hero__lede">
+                Experiencias gastronómicas exclusivas en Medellín. Reserva tu mesa ideal en segundos y asegura una noche inolvidable.
+            </p>
+            <div class="rv-hero__actions">
+                <% if (typeof usuarioId === 'undefined' || !usuarioId) { %>
+                    <a href="/login" class="btn-gold"><i class="bi bi-calendar-event"></i> Reservar Mesa Ahora</a>
+                    <a href="/login" class="btn-dark"><i class="bi bi-journal-richtext"></i> Iniciar Sesión</a>
+                <% } else { %>
+                    <a href="/dashboard" class="btn-gold"><i class="bi bi-shield-lock"></i> Ir a mi Panel</a>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING BAR -->
+    <section class="rv-bookingbar">
+        <form action="/reservas/crear" method="POST" class="rv-bookingbar__form">
+            <div class="rv-bookingbar__label">
+                <i class="bi bi-calendar2-check"></i>
+                <span>Haz tu reserva</span>
+            </div>
+            <div class="rv-bookingbar__field">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="rv-bookingbar__field">
+                <label for="hora">Hora</label>
+                <input type="time" id="hora" name="hora" required>
+            </div>
+            <div class="rv-bookingbar__field">
+                <label for="cantidad_personas">Personas</label>
+                <select id="cantidad_personas" name="cantidad_personas" required>
+                    <option value="1">1 Persona</option>
+                    <option value="2" selected>2 Personas</option>
+                    <option value="4">4 Personas</option>
+                    <option value="6">6+ Personas</option>
+                </select>
+            </div>
+            <div class="rv-bookingbar__field">
+                <label for="mesa">Área / Mesa</label>
+                <select id="mesa" name="mesa">
+                    <option value="Interior">Interior</option>
+                    <option value="Terraza">Terraza</option>
+                    <option value="VIP">Zona VIP</option>
+                </select>
+            </div>
+            <button type="submit" class="rv-bookingbar__submit">Reservar</button>
+        </form>
+    </section>
+
+    <!-- GALERÍA EDITORIAL -->
+    <section class="rv-gallery">
+        <div class="rv-gallery__intro">
+            <span class="rv-eyebrow">¿Por qué elegirnos?</span>
+            <h2>La experiencia ReserVa</h2>
+        </div>
+        <div class="rv-gallery__grid">
+            <figure class="rv-gallery__item">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80" alt="Ambiente">
+                <figcaption>
+                    <span class="rv-gallery__num">I.</span>
+                    <h4>Ambiente Único</h4>
+                    <p>Espacios diseñados para ofrecerte comodidad, elegancia y la mejor atmósfera de la ciudad.</p>
+                </figcaption>
+            </figure>
+            <figure class="rv-gallery__item">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80" alt="Carta premium">
+                <figcaption>
+                    <span class="rv-gallery__num">II.</span>
+                    <h4>Carta Premium</h4>
+                    <p>Cortes de carne seleccionados, platos de autor y una coctelería diseñada por expertos.</p>
+                </figcaption>
+            </figure>
+            <figure class="rv-gallery__item">
+                <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1600&q=80" alt="Coctelería">
+                <figcaption>
+                    <span class="rv-gallery__num">III.</span>
+                    <h4>Reserva Instantánea</h4>
+                    <p>Olvídate de las filas. Elige tu mesa y asegura tu lugar en tiempo real.</p>
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- CTA REGISTRO -->
+    <% if (typeof usuarioId === 'undefined' || !usuarioId) { %>
+    <section class="rv-cta">
+        <div class="rv-cta__inner">
+            <span class="rv-eyebrow">Membresía ReserVa</span>
+            <h3>¿Aún no tienes una cuenta?</h3>
+            <p>Regístrate hoy mismo para gestionar tus reservas, ver tu historial y recibir beneficios exclusivos.</p>
+            <a href="/register" class="btn-gold">Crear una Cuenta</a>
+        </div>
+    </section>
+    <% } %>
+
+    <!-- TICKER -->
+    <footer class="rv-ticker">
+        <div class="rv-ticker__track">
+            <div class="rv-ticker__set">
+                <span><i class="bi bi-shield-check"></i> Reserva 100% Segura — Tus datos están protegidos</span>
+                <span><i class="bi bi-lightning-charge"></i> Confirmación Inmediata — Recibe tu reserva al instante</span>
+                <span><i class="bi bi-hand-thumbs-up"></i> Atención Personalizada — Estamos para ayudarte</span>
+            </div>
+            <div class="rv-ticker__set" aria-hidden="true">
+                <span><i class="bi bi-shield-check"></i> Reserva 100% Segura — Tus datos están protegidos</span>
+                <span><i class="bi bi-lightning-charge"></i> Confirmación Inmediata — Recibe tu reserva al instante</span>
+                <span><i class="bi bi-hand-thumbs-up"></i> Atención Personalizada — Estamos para ayudarte</span>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<%- include('partials/footer') %>
