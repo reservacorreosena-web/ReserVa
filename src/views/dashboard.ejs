@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel - ReserVa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            text-align: left;
+        }
+
+        th {
+            background: #2a2a2a;
+        }
+
+        form {
+            margin-top: 20px;
+            background: #252525;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        input,
+        select {
+            padding: 8px;
+            margin: 5px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background: #ff6600;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Panel de Gestión - ReserVa 🚀</h2>
+
+        <h3>Listado de Reservas</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Plato</th>
+                <th>Mesa</th>
+                <th>Estado</th>
+            </tr>
+            <% reservas.forEach(r=> { %>
+                <tr>
+                    <td>
+                        <%= r.id %>
+                    </td>
+                    <td>
+                        <%= r.cliente %>
+                    </td>
+                    <td>
+                        <%= r.plato %>
+                    </td>
+                    <td>
+                        <%= r.mesa %>
+                    </td>
+                    <td>
+                        <%= r.estado %>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+
+        <form action="/reservas/crear" method="POST">
+            <h3>Nueva Reserva</h3>
+            <input type="text" name="cliente" placeholder="Nombre del cliente" required>
+            <input type="text" name="plato" placeholder="Plato" required>
+            <input type="number" name="mesa" placeholder="Mesa" required>
+            <button type="submit">Guardar Reserva</button>
+        </form>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>Panel de Gestión - ReserVa 🚀</h2>
+            <a href="/logout"><button style="background: #cc3333;">Cerrar Sesión</button></a>
+        </div>
+    </div>
+</body>
+
+</html>
