@@ -23,55 +23,69 @@ app.use(session({
 // Middleware para proteger rutas privadas
 const verificarAuth = (req, res, next) => {
     if (!req.session.usuarioId) {
-        return res.redirect('/');
+        return res.redirect('/login');
     }
     next();
 };
 
+// Permitir que Express sirva archivos estáticos (CSS, imágenes, JS del cliente)
+app.use(express.static('public'));
+
 // --- RUTAS ---
 
-// 1. Login / Registro (Vista)
+// Landing page, inicio ReserVa
 app.get('/', (req, res) => {
-    if (req.session.usuarioId) return res.redirect('/dashboard');
-    res.render('login', { error: null, mensaje: null });
+    res.render('landing_usuario', { 
+        usuarioId: req.session.usuarioId || null 
+    });
 });
 
-// 2. Procesar Login
+// 2. Vista de Login
+app.get('/login', (req, res) => {
+    if (req.session.usuarioId) return res.redirect('/dashboard');
+    res.render('login', { error: null });
+});
+
+// Procesar Login
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const usuario = await Usuario.findOne({ where: { email } });
         
         if (!usuario || !(await bcrypt.compare(password, usuario.password))) {
-            return res.render('login', { error: "Credenciales inválidas", mensaje: null });
+            return res.render('login', { error: "Correo o contraseña incorrectos" });
         }
 
         req.session.usuarioId = usuario.id;
         req.session.email = usuario.email;
         res.redirect('/dashboard');
     } catch (error) {
-        console.log(error);
-        res.render('login', { error: "Error en el servidor", mensaje: null });
+        res.render('login', { error: "Error en el servidor" });
     }
 });
 
-// 3. Procesar Registro
+// 3. Vista de Registro
+app.get('/register', (req, res) => {
+    if (req.session.usuarioId) return res.redirect('/dashboard');
+    res.render('register', { error: null });
+});
+
+// Procesar Registro
 app.post('/register', async (req, res) => {
     try {
         const { email, password } = req.body;
         const existe = await Usuario.findOne({ where: { email } });
         
         if (existe) {
-            return res.render('login', { error: "El correo ya está registrado", mensaje: null });
+            return res.render('register', { error: "El correo ya está registrado" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         await Usuario.create({ email, password: hashedPassword });
 
-        res.render('login', { error: null, mensaje: "¡Cuenta creada con éxito! Inicia sesión." });
+        res.redirect('/login');
     } catch (error) {
-        console.log(error);
-        res.render('login', { error: "Error al registrar", mensaje: null });
+        res.render('register', { error: "Error al registrar la cuenta" });
     }
 });
 
@@ -81,7 +95,6 @@ app.get('/dashboard', verificarAuth, async (req, res) => {
         const reservas = await Reserva.findAll({ where: { usuarioId: req.session.usuarioId } });
         res.render('dashboard', { reservas, email: req.session.email });
     } catch (error) {
-        console.log(error);
         res.status(500).send("Error cargando el panel");
     }
 });
@@ -89,10 +102,12 @@ app.get('/dashboard', verificarAuth, async (req, res) => {
 // 5. Crear Reserva - Protegido
 app.post('/reservas/crear', verificarAuth, async (req, res) => {
     try {
-        const { cliente, plato, mesa } = req.body;
+        const { fecha, hora, cantidad_personas, mesa } = req.body;
+        
+        // Mapeo seguro con los campos que recibe tu base de datos
         await Reserva.create({
-            cliente,
-            plato,
+            cliente: req.session.email, // O el nombre que tengas en sesión
+            plato: `Mesa ${mesa} - ${cantidad_personas} Pers. (${fecha} ${hora})`,
             mesa,
             usuarioId: req.session.usuarioId
         });
