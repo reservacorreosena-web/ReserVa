@@ -1,5 +1,6 @@
-// src/models/Resena.js
 const mongoose = require('mongoose');
+
+// Definición del esquema para el modelo Reseña
 
 const resenaSchema = new mongoose.Schema({
     usuario: {
@@ -26,6 +27,11 @@ const resenaSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true // Reemplaza a fecha = models.DateTimeField(auto_now_add=True)
+
 });
+
+resenaSchema.methods.obtenerResumen = function() {
+  return `Reseña - Comida: ${this.calificacion_comida} | Servicio: ${this.calificacion_servicio}`;
+};
 
 module.exports = mongoose.model('Resena', resenaSchema);

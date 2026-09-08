@@ -1,6 +1,8 @@
 // src/models/Gasto.js
 const mongoose = require('mongoose');
 
+//  Definición del esquema para el modelo Gasto
+
 const gastoSchema = new mongoose.Schema({
     tipo: {
         type: String,
